@@ -1,5 +1,5 @@
-sabnzbd
-=======
+sickbeard
+=========
 
 Latest stable Sickbeard Git release from Arch Linux AUR using Packer to compile.
 
@@ -25,7 +25,7 @@ Please replace all user variables in the above command defined by <> with the co
 http://<host ip>:8081
 ```
 
-or for ssl
+or for SSL
 
 ```
 https://<host ip>:8091
