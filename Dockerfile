@@ -25,9 +25,6 @@ VOLUME /media
 # expose port for http
 EXPOSE 8081
 
-# expose port for https
-EXPOSE 8091
-
 # set permissions
 #################
 
