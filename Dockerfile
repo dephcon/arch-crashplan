@@ -39,6 +39,15 @@ RUN chmod -R 775 /opt/sickbeard
 
 ADD sickbeard.conf /etc/supervisor/conf.d/sickbeard.conf
 
+# cleanup
+#########
+
+# completely empty pacman cache folder
+RUN pacman -Scc --noconfirm
+
+# remove temporary files
+RUN rm -rf /tmp/*
+
 # run supervisor
 ################
 
