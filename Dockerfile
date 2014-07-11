@@ -7,6 +7,9 @@ MAINTAINER binhex
 # update package databases for arch
 RUN pacman -Sy --noconfirm
 
+# install any pre-reqs for application
+RUN pacman -S python2-pyopenssl --noconfirm
+
 # run packer to install application
 RUN packer -S sickbeard-git --noconfirm
 
