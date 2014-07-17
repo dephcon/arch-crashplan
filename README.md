@@ -1,9 +1,9 @@
-sickbeard
+Sickbeard
 =========
 
-Latest stable Sickbeard Git release from Arch Linux AUR using Packer to compile.
+Sickbeard - http://sickbeard.com/
 
-This is a Dockerfile for Sickbeard - http://sickbeard.com/
+Latest stable Sickbeard Git Master release from Arch Linux AUR using Packer to compile.
 
 **Pull image**
 
