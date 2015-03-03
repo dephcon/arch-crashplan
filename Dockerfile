@@ -1,4 +1,4 @@
-FROM binhex/arch-base:2015010500
+FROM binhex/arch-base:2015030300
 MAINTAINER binhex
 
 # additional files
@@ -7,31 +7,18 @@ MAINTAINER binhex
 # add supervisor conf file for app
 ADD sickbeard.conf /etc/supervisor/conf.d/sickbeard.conf
 
+# add install bash script
+ADD install.sh /root/install.sh
+
+# add packer bash script
+ADD packer.sh /root/packer.sh
+
 # install app
 #############
 
-# install base devel, install app using packer, set perms, cleanup
-RUN pacman -Sy --noconfirm && \
-	pacman -S --needed base-devel python2-pyopenssl --noconfirm && \
-	useradd -m -g wheel -s /bin/bash makepkg-user && \
-	echo -e "makepkg-password\nmakepkg-password" | passwd makepkg-user && \
-	echo "%wheel      ALL=(ALL) ALL" >> /etc/sudoers && \
-	echo "Defaults:makepkg-user      !authenticate" >> /etc/sudoers && \
-	curl -o /home/makepkg-user/packer.tar.gz https://aur.archlinux.org/packages/pa/packer/packer.tar.gz && \
-	cd /home/makepkg-user && \
-	tar -xvf packer.tar.gz && \
-	su -c "cd /home/makepkg-user/packer && makepkg -s --noconfirm --needed" - makepkg-user && \
-	pacman -U /home/makepkg-user/packer/packer*.tar.xz --noconfirm && \
-	su -c "packer -S sickbeard-git --noconfirm" - makepkg-user && \
-	chown -R nobody:users /opt/sickbeard && \
-	chmod -R 775 /opt/sickbeard && \	
-	pacman -Ru packer base-devel git --noconfirm && \
-	yes|pacman -Scc && \
-	userdel -r makepkg-user && \
-	rm -rf /usr/share/locale/* && \
-	rm -rf /usr/share/man/* && \
-	rm -rf /root/* && \
-	rm -rf /tmp/*
+# make executable and run bash scripts to install app
+RUN chmod +x /root/install.sh /root/packer.sh && \
+	/bin/bash /root/install.sh
 
 # docker settings
 #################
